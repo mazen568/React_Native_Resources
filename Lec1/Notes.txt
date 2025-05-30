@@ -1,0 +1,209 @@
+1-<View> is the building block for creating user interfaces in react native
+  it functions as a container supporting layout using flexbox ,styling,touch handling,accessibilty controls
+  it can be compared to the <div>
+  by setting flex : 1 the View will flexibly expand and take all the available screen
+2-<Text> is component for displaying text , depending on the platform it will translate the component to
+  <UITextView> for ios, and <TextView> for android  , or <p> for the web
+   <View style={{ backgroundColor: "plum", flex: 1 }}>
+     <Text></Text>
+      Hello world
+
+    </View>
+    this is wrong because any text string must be wrapped around the <Text> component
+3-<Image> is component that enables us to display various types of images, including
+  -static images
+  -network images
+  -images from the local disk, such us the camera roll   
+  and rn translates it to UIImageView for ios and ImageView for android and img for the web
+  setting the width and height for network images is mandatory
+  for static images rn can infer the dimensions from the file dat
+  Image background is used to add text insidee the image
+4-<Button> is component that triggers users to do actions
+  rn transaltes it to UIButton for ios, ButtonView for android, button for the web
+
+5-<Pressable> component is the same as the button component but you can wrap elements inside it
+  and you can create a custom button using it because the android and ios styling differ from each other
+6-<Modal> just like any modal that appears on top of everything
+  Modal code :
+  <ScrollView style={{backgroundColor:"pink" ,padding:60}}>
+        <Button title="press" onPress={()=>setShowModal(true)}/>
+       
+        <Modal visible={showModal} 
+               onRequestClose={()=>setShowModal(false)} 
+               animationType="slide"
+               presentationStyle="pageSheet"
+              //  presentationStyle affects only ios and not android
+               >
+         <View style={{flex:1,backgroundColor:"lightgreen" , padding:60}}>
+            <Text>Modal content</Text>
+            <Button title="Close" onPress={()=>setShowModal(false)}/>
+
+         </View>
+        </Modal>
+      </ScrollView>
+7-status bar is the header on any phone that contains the battery health time and wifi and other stuff
+    <StatusBar backgroundColor="lightgreen" barStyle="default" hidden/>
+    the background prop is only usable on android 
+    barstyle prop default value refers to dark text on ios and white text on android
+    barstyle prop dark-content value refers to dark text on both platforms
+    barstyle prop light-content value refers to white text on both platforms
+    hidden prop is used to hide the status bar
+
+   code:
+   import { Text, View,StatusBar,Button } from "react-native";
+const img=require("./assets/adaptive-icon.png");
+import { useState } from "react";
+
+export default function App() {
+  const [showStatusBar,setShowStatusBar]=useState(false)
+  const [changeStatusBarColor,setChangeStatusBarColor]=useState("light-content");
+  const handleChange=(theme,show)=>{
+    setShowStatusBar(show);
+    setChangeStatusBarColor(theme);
+  }
+  return (
+      <View style={{backgroundColor:"pink" ,padding:60,flex:1}}>
+        <StatusBar backgroundColor="lightgreen" barStyle={changeStatusBarColor} hidden={showStatusBar}/>
+          <View>
+          <Button color="lightgray"   title="show light status bar" onPress={()=>handleChange("light-content",false)}/>
+          <Button color="black"  title="show dark status bar" onPress={()=>handleChange("dark-content",true)}/>
+          </View>
+      </View>
+  );
+}
+ 
+8-ActivityIndicator
+  displays a circular loading indicator
+  code:
+       <ActivityIndicator size="large" color="midnightblue" animating={false}/>
+  bayn mn asamy el props msh lazm ashr7 w el desgin bykhtlf mn el ios ll andriod el ios shaklo andf kda
+  animating = false bykhleha tkhtfy
+
+9-Alert 
+      launches an alert dialog with specified title and message  
+      optionally you can also include a list of buttons
+      by default it contains an ok button
+ <Button title="Alert 3" onPress={()=>{Alert.alert("invalid data","name is incorrect",[
+        {
+          text:"Cancel",
+          onPress:()=>console.log("Cancel pressed")    
+        },
+        {
+          text:"Ok",
+          onPress:()=>console.log("Ok pressed")    
+        },
+       ])}} color="brown"/>
+     the first parameter is title and the other is the message below the title, and the third is the list of buttons you to inclide
+     in ios you can specifiy any number of buttons but in android the limt is 3
+
+ 10-styling react native apps:
+    react native does not use css for styling
+    but instead it uses javascript for styling
+    names are written in camel case
+    you can style your app using inline styles which is accepted by most of the core componenets and it is not recommended
+    and you can use stylesheets api which allows you to style in one place using the create method
+    borderRadius is applicable to View component in both platforms
+    borderRadius is not applicable to Text component in both platforms, but only in android
+
+
+11-style inheritance:
+   in css lets say you have this
+   <div className="text-red">
+     <p>Red color</p>
+   </div>
+   the text color is applied to all of the childern of the <div> tag like in that example
+   it is applied to the <p> tag
+   but in react native when you this
+   <View style={{color:"red"}}>
+     <Text>Red color</Text>
+   </View>
+   the red text color is not applied to the Text component , because it is not inherited from the View component
+   but the only exception is this example:
+    <Text style={{ color: 'red' }}>
+        This is red text.
+        <Text> ← This will also be red.</Text>
+    </Text>
+    only the <Text> component has the inheritance enabled across nested text
+12-flexbox:
+  consists of two main entities:
+  -flex container
+  -flex items  
+  axes:
+  -main axis
+  -cross axis
+    by default the main access runs from left to right and cross axis is perpendicular(from top to bottom)
+    but in react native it is the opposite 
+    in css you need to do this display:flex
+    but in react native the View component is already set to flex
+    by default the view component takes a space for its children and if there is no children
+    it will not take any space and to make it take the entire available  space
+    add the flex property and set it to 1
+   flexDirection :
+    it has 4 values that helps change the main(top to bottom) and cross axios(left to right)
+    flexDirection:"column" sets the items from top to bottom and it is the default value   
+    flexDirection:"column-reverse" sets the items from bottom to top
+    flexDirection:"row" sets the items from left to right
+    flexDirection:"row-reverse" sets the items from right to left
+   justify-content:
+    deals with the main axis
+    "flex-start":does not do anything
+    "flex-end":puts the items as they are at the bottom its is different from flexDirection:"column-reverse"
+     because flexDirection:"column-reverse" begins to fill the column from bottom to top
+    "center":puts the items at the center
+    "space-between":the extra space is split and evenly added between the items
+    "space-around":the extra space is split and evenly added between the items and before the 1st element and after the last element
+    and the space before and after these items are half the space between the items themselves
+    "space-evenly" is the same as the one before but the space before and after the 1st and 2nd elements are the same as
+    the space betweeen the items
+   allginItems :
+     deals with the cross axis
+     lets say we have a flexdirection column
+     stretch:will stretch the entire length of the cross axis =>default value
+     allginItems:"flex-start" then this pushes all the items to the start of the cross access
+     allginItems:"flex-end" then this pushes all the items to the end of the cross access
+     allginItems:"center" then this puts all the items at the center of the cross access
+
+
+   alignSelf :
+   align items is applied to the container and controls and allignment of all items within it
+   align self is applied to each item individually(independtly)
+   it has the same values of the alignItems but the default value is auto which inherites from the parent container alignItems property
+
+   alignContent:
+   the same as the alginItems but it demands that must be columns or rows there to work correctly
+   but it has to extra values that are space-between and space-around
+
+
+   Gap:
+   rowGap:sets a gap between the rows
+   columnGap:sets a gap between the columns
+   gap:sets the same gap value for rows and columns(instead of doing it two times one for using rowGap and the other one for columnGap)
+
+   flexShrink:
+      1-determines how children within a container shrink along the main axis when their combined size exceeds the container's size
+      2-the flexShrink factor is relative to other items within the container
+      values:
+       -every flex item has a default shrink value of 0 which causes the items to overflow the container of their size exceeds the container's size
+       -to overcome that put a +ve value to flexShrink like the example blow
+       - <Box style={{ backgroundColor: "lightblue" ,flexShrink:1}}>Box 1 shrink</Box>
+         <Box style={{ backgroundColor: "blue" ,flexShrink:2}}>Box 2 shrink</Box>
+         flexShrink:2 it means it will shrink as twice as much as the 1st box(that's what number 2 means)
+              
+   flexGrow"
+     determines how much space an item should take inside a flex container when there is extra space available
+     flexGrow factor is always relative to other items within the container
+     all flex items has a flexGrow default value of 0 which prevents them from taking advantage of the available space
+     to overcome that put +ve value to the flexGrow like the example below
+     values:
+         <Box style={{ backgroundColor: "lightblue" ,flexGrow:1}}>Box 1 shrink</Box>
+         <Box style={{ backgroundColor: "blue" ,flexGrow:2}}>Box 2 shrink</Box>
+        flexGrow:3 means that it will take space as twice as the much the 1st box
+
+   relative(used for responseviness) and absolute(used for ui animations and complete control over the ui components) layout:
+    -relative:it is in the normal flow of the container but it will not affect in sibling , it means if it is near any sibling it will go behind it
+    -absolute:it is the opposite  , it means if it is near any sibling it will go over it
+
+
+
+
+   
