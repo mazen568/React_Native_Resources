@@ -1,0 +1,78 @@
+Flexbox:
+take it as it is : every view takes up as much space as needed for its children unless you say so even for the parent view(root view i meant) 
+every view element uses flexbox by default and the flexDirection value is set to default "column"
+cross axis is the default x-axis(left to right)
+main axis is the default y-axis(top to bottom)
+justifyContent to organize elements around the main axis and its default value is flex start
+alignItems to organize elements around the cross axis and its default value is stretch
+when you set alignItems to center you tell react native you want each small box (child) to sit in the center of the parent, but you didn’t say how tall they should be
+so it just gives them the height it needs (like the text field that a number inside so that's why it is so small)
+flex is a property that can be used in an element that is inside a flexbox and always add the flex values numbers so you can determine how much space each child takes
+
+
+import React from 'react';
+import {Text, View} from 'react-native';
+
+export default function App() {
+    return (
+        <View style={{padding: 50,flexDirection:"row",width:"80%", height: 300, justifyContent: 'space-between',alignItems:"center"}}>
+            <View
+                style={{
+                    backgroundColor: 'red',
+                    flex:1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                <Text>1</Text>
+            </View>
+            <View
+                style={{
+                    backgroundColor: 'blue',
+                    flex:2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                <Text>2</Text>
+            </View>
+            <View
+                style={{
+                    backgroundColor: 'green',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                <Text>3</Text>
+            </View>
+        </View>
+    );
+}
+
+Andriod and ios differencies:
+like the border radius on the Text component it works only for android because its native element supports rounded corners and ios native element does not
+unlike css in the web the styles in stylesheets do not cascade the children do not inherit the styling from their parents
+
+
+FlatList:
+for dynamic lists that can be super long
+it is specifically built for scrollable lists
+it will only render the items that are visible on the screen
+it is used instead of scroll view
+ <FlatList 
+        data={goalsList} 
+        //itemData is an object provided by FlatList that contains the current item and its metadata (like index)
+        //itemData.item is the data object { id: 'g1', value: 'Buy Milk' }
+        //itemData.index is accessible like that
+        renderItem={(itemData)=><GoalItem 
+          item={itemData.item.value} 
+          style={styles.goalItem}
+        />}
+        keyExtractor={(item,index)=>item.id}
+        />
+there is two ways to pass a key to each item in the FlatList:
+1-is to have a "key" property in each item
+2-is to add the KeyExtractor prop on the FlatList
+KeyExtractor={(item,index)=>{return item.id}}
+
+
+
+Pressable:
+you wrap this component around the thing you want to press unlike in web you just put the onClick prop 
