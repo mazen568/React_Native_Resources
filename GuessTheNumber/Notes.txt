@@ -1,0 +1,7 @@
+android and ios differencies:
+the shadow property for android you use the elevation property
+the shadow property for ios you use the properties like CSS
+      shadowColor: "#000",=> shadow color
+      shadowOffset: { width: 0, height: 2 },=> here the shadow will be vertical only
+      shadowOpacity: 0.3,=> how transparent a shadow is
+      shadowRadius: 4,=> how the shadow expands
