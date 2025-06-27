@@ -1,0 +1,33 @@
+React navigation:
+it is a component based library
+it gives you a bunch of components that allow you to ser up your navigation configuration
+NavigationContainer is a component that you wrap around the components that needs navigation (typically your entire app)
+use stack navigation:
+const Stack=createNativeStackNavigator();
+Stack is an object that gives you two components Stack.Navigator,Stack.Screen
+the navigation prop that you receive as a prop is only available on screens that are defined in the Stack.Navigator 
+and if you want to pass it to another child componenet you can pass it as a prop, 
+and you can also use the the useNaviagtion hook also which serves the same purpose
+and you can use useRoute hook to serve the same purpose as the route prop
+
+
+Images:
+to use an image from the web you have to do that:
+<Image soruce={{uri:ImageUrl}}/> and here you have to set width and height for the image
+because unlike local images react native does look at the dimensions of web photo
+
+foreground:true tells android to draw the ripple effect on top of your Pressable’s content, not behind it.
+
+
+| Hook              | When it runs                   | Safe for `setOptions()`? |
+| ----------------- | ------------------------------ | ------------------------ |
+| `useEffect`       | After screen is shown          | ❌ Flickers before update |
+| `useLayoutEffect` | After render, before paint | ✅ No flicker, safe       |
+| Inside render     | During render cycle            | ❌ Triggers error         |
+
+Drawer :
+refer to offical docs 
+you can toggle the drawer to open by using navigation.toggleDrawer()
+
+BottomTabs
+
