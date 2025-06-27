@@ -5,3 +5,22 @@ the shadow property for ios you use the properties like CSS
       shadowOffset: { width: 0, height: 2 },=> here the shadow will be vertical only
       shadowOpacity: 0.3,=> how transparent a shadow is
       shadowRadius: 4,=> how the shadow expands
+Using Gradients(mixing background colors):
+you can install expo-linear-gradient(expo install expo-linear-gradient)
+and set the colors prop on the LinearGradient component like that
+     <LinearGradient colors={["#4e0329","#ddb52f"]} style={styles.rootScreen}>
+      <StartGameScreen />
+     </LinearGradient>
+Rule of Thumb
+💡 If TypeScript can clearly infer the type — let it.
+❗ If there’s any ambiguity or complex type — be explicit.
+Fonts:
+expo install expo-font
+
+
+expo install expo-app-loading:
+Gives a utility component which we can render which will prolong the splash screen, and will ensure that the splash screen is still shown untill some condition is met
+It allows you to delay rendering your app's UI until all critical resources (e.g. fonts) are fully loaded.
+
+
+
